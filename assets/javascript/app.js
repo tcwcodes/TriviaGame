@@ -34,23 +34,23 @@ $(document).ready(function() {
 
     // Set up countdown timer
     var timer = {
-        time: 3,
+        time: 5,
 
         start: function() {
             counter = setInterval(timer.count, 1000);
             setTimeout (function() {
                 clearInterval(counter);
-                }, 1000*3)
+                }, 1000*5)
         },
 
         count: function() {
             timer.time--;
-            $('#timer-div').text("Time remaining: " + timer.time);
+            $('#timer-div').html("<h2>Time remaining: " + timer.time + "</h2>");
         },
 
         reset: function() {
-            timer.time = 3;
-            $('#timer-div').text("Time remaining: " + timer.time);
+            timer.time = 5;
+            $('#timer-div').html("<h2>Time remaining: " + timer.time + "</h2>");
         }
 
     }
@@ -71,7 +71,7 @@ $(document).ready(function() {
             questionDiv.attr('correctAnswer', randomQuestion.answer)
             questionDiv.attr('correctAnswerInWords', randomQuestion.answerList[randomQuestion.answer])
             questionDiv.attr('answerImagePath', randomQuestion.answerImage)
-            questionDiv.append(randomQuestion.question);
+            questionDiv.append('<h2>' + randomQuestion.question + '</h2>');
             $('#game-div').append(questionDiv);
 
             // Create an answer choice div and append to game div
@@ -84,7 +84,7 @@ $(document).ready(function() {
             var eachAnswerDiv = $('<div>');
             eachAnswerDiv.addClass('eachAnswerDivClass');
             eachAnswerDiv.attr('thisAnswer', [i]);
-            eachAnswerDiv.append(randomQuestion.answerList[i]);
+            eachAnswerDiv.append('<h3>' + randomQuestion.answerList[i] + '</h3>');
             $(answerChoiceDiv).append(eachAnswerDiv);
             };
 
@@ -110,13 +110,13 @@ $(document).ready(function() {
                 console.log('Unanswered: ' + unanswered);
                 $('.questionDivClass').remove();
                 $('.answerChoiceDivClass').remove();
-                $('#timer-div').empty();
+                $('#timer-div').hide();
                 $('#game-div').append('<h2>You waited too long! The correct answer is ' + theAnswerInWords + '.</h2>');
                 $('#game-div').append('<img src=' + questionImage + '>');
                     setTimeout(function() {
                         if (triviaQuestions.length === 0) {
                             $('#game-div').empty();
-                            $('#timer-div').empty();
+                            $('#timer-div').hide();
                             $('#game-div').append('<h2>Game over!</h2>');
                             $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
                             $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
@@ -126,9 +126,9 @@ $(document).ready(function() {
                             loadFirstQuestion();
                             waitedTooLong();
                         }      
-                    }, 1000*3);
+                    }, 1000*5);
                 } else {}
-            }, 1000*3);
+            }, 1000*5);
         };
 
         // Declare function that moves on to next question after answer is displayed for three seconds
@@ -137,12 +137,12 @@ $(document).ready(function() {
                 $('.questionDivClass').remove();
                 $('.answerChoiceDivClass').remove();
                 loadFirstQuestion();
-            }, 1000*3);
+            }, 1000*5);
         }
 
     $('body').on('click', '#start-button', function() {
 
-        // Empty start button
+        // Hide start button
         $('#start-button-div').hide();
         // Load first question
         loadFirstQuestion()
@@ -165,7 +165,7 @@ $(document).ready(function() {
             console.log('Wins: ' + wins);
             console.log('Losses: ' + losses);
             console.log('Unanswered: ' + unanswered);
-            $('#timer-div').empty();
+            $('#timer-div').hide();
             $('.questionDivClass').remove();
             $('.answerChoiceDivClass').remove();
             $('#game-div').append('<h2>You got it! The correct answer is ' + theAnswerInWords + '.</h2>');
@@ -182,14 +182,14 @@ $(document).ready(function() {
                     loadFirstQuestion()
                     waitedTooLong();
                 }                  
-            }, 1000*3);
+            }, 1000*5);
         } else {
             losses++;
             console.log('Incorrect');
             console.log('Wins: ' + wins)
             console.log('Losses: ' + losses);
             console.log('Unanswered: ' + unanswered);
-            $('#timer-div').empty();
+            $('#timer-div').hide();
             $('.questionDivClass').remove();
             $('.answerChoiceDivClass').remove();
             $('#game-div').append('<h2>So close! The correct answer is ' + theAnswerInWords + '.</h2>');
@@ -206,7 +206,7 @@ $(document).ready(function() {
                     loadFirstQuestion()
                     waitedTooLong();
                 }      
-            }, 1000*3);
+            }, 1000*5);
         }
     });
 });
