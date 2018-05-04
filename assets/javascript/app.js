@@ -110,13 +110,13 @@ $(document).ready(function() {
                 console.log('Unanswered: ' + unanswered);
                 $('.questionDivClass').remove();
                 $('.answerChoiceDivClass').remove();
-                $('#timer-div').hide();
+                $('#timer-div').empty();
                 $('#game-div').append('<h2>You waited too long! The correct answer is ' + theAnswerInWords + '.</h2>');
                 $('#game-div').append('<img src=' + questionImage + '>');
                     setTimeout(function() {
                         if (triviaQuestions.length === 0) {
                             $('#game-div').empty();
-                            $('#timer-div').hide();
+                            $('#timer-div').empty();
                             $('#game-div').append('<h2>Game over!</h2>');
                             $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
                             $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
@@ -165,7 +165,7 @@ $(document).ready(function() {
             console.log('Wins: ' + wins);
             console.log('Losses: ' + losses);
             console.log('Unanswered: ' + unanswered);
-            $('#timer-div').hide();
+            $('#timer-div').empty();
             $('.questionDivClass').remove();
             $('.answerChoiceDivClass').remove();
             $('#game-div').append('<h2>You got it! The correct answer is ' + theAnswerInWords + '.</h2>');
@@ -189,7 +189,7 @@ $(document).ready(function() {
             console.log('Wins: ' + wins)
             console.log('Losses: ' + losses);
             console.log('Unanswered: ' + unanswered);
-            $('#timer-div').hide();
+            $('#timer-div').empty();
             $('.questionDivClass').remove();
             $('.answerChoiceDivClass').remove();
             $('#game-div').append('<h2>So close! The correct answer is ' + theAnswerInWords + '.</h2>');
