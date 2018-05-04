@@ -27,6 +27,8 @@ $(document).ready(function() {
         answerImage: 'assets/images/question4.gif'
     }];
 
+    var questionBank = [];
+
     var wins = 0;
     var losses = 0;
     var unanswered = 0;
@@ -60,6 +62,10 @@ $(document).ready(function() {
             // Pick a random question
             var randomNumber = Math.floor(Math.random()*triviaQuestions.length);
             var randomQuestion = triviaQuestions[randomNumber];
+            questionBank.push(randomQuestion);
+            console.log(triviaQuestions);
+            console.log(questionBank);
+
             
             // Give that question an index of 0 then shift it from the array
             triviaQuestions[randomNumber] = triviaQuestions[0];
@@ -117,10 +123,17 @@ $(document).ready(function() {
                         if (triviaQuestions.length === 0) {
                             $('#game-div').empty();
                             $('#timer-div').empty();
-                            $('#game-div').append('<h2>Game over!</h2>');
+                            $('#game-div').append('<h2>Game over! Hit the start button to play again!</h2>');
                             $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
                             $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
                             $('#game-div').append('<h3>Unanswered: ' + unanswered + '</h3>');
+                            triviaQuestions = questionBank;
+                            questionBank = [];
+                            wins = 0;
+                            losses = 0;
+                            unanswered = 0;
+                            answeredInTime = false;
+                            $('#start-button-div').show();
                         } else {
                             $('#game-div').empty();
                             loadFirstQuestion();
@@ -144,6 +157,7 @@ $(document).ready(function() {
 
         // Hide start button
         $('#start-button-div').hide();
+        $('#game-div').empty();
         // Load first question
         loadFirstQuestion()
         waitedTooLong();
@@ -173,10 +187,17 @@ $(document).ready(function() {
             setTimeout(function() {            
                 if (triviaQuestions.length === 0) {
                     $('#game-div').empty();
-                    $('#game-div').append('<h2>Game over!</h2>');
+                    $('#game-div').append('<h2>Game over! Hit the start button to play again!</h2>');
                     $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
                     $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
                     $('#game-div').append('<h3>Unanswered: ' + unanswered + '</h3>');
+                    triviaQuestions = questionBank;
+                    questionBank = [];
+                    wins = 0;
+                    losses = 0;
+                    unanswered = 0;
+                    answeredInTime = false;
+                    $('#start-button-div').show();
                 } else {
                     $('#game-div').empty();
                     loadFirstQuestion()
@@ -197,10 +218,17 @@ $(document).ready(function() {
             setTimeout(function() {
                 if (triviaQuestions.length === 0) {
                     $('#game-div').empty();
-                    $('#game-div').append('<h2>Game over!</h2>');
+                    $('#game-div').append('<h2>Game over! Hit the start button to play again!</h2>');
                     $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
                     $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
                     $('#game-div').append('<h3>Unanswered: ' + unanswered + '</h3>');
+                    triviaQuestions = questionBank;
+                    questionBank = [];
+                    wins = 0;
+                    losses = 0;
+                    unanswered = 0;
+                    answeredInTime = false;
+                    $('#start-button-div').show();
                 } else {
                     $('#game-div').empty();
                     loadFirstQuestion()
