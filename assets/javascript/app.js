@@ -3,28 +3,34 @@ $(document).ready(function() {
     // Declare variables
     var triviaQuestions = 
     [{
-        question: 'Question 1?',
-        answerList: ['one', 'two', 'three', 'four'],
-        answer: 0,
-        answerImage: 'assets/images/question1.gif'
-    },
-    {
-        question: 'Question 2?',
-        answerList: ['one', 'two', 'three', 'four'],
-        answer: 1,
-        answerImage: 'assets/images/question2.gif'
-    },
-    {
-        question: 'Question 3?',
-        answerList: ['one', 'two', 'three', 'four'],
+        question: "What do the kids in 'Stranger Things' call the interdimensional monster?",
+        answerList: ["The Upside Down", "The Facehugger", "The Demogorgon", "The Terminator"],
         answer: 2,
-        answerImage: 'assets/images/question3.gif'
+        answerImage: 'assets/images/strangerthings.gif'
     },
     {
-        question: 'Question 4?',
-        answerList: ['one', 'two', 'three', 'four'],
+        question: "In the 'Fifth Element,' what item does Leeloo present to multiple characters?",
+        answerList: ["Lightsaber", "Multipass", "Raygun", "Chili's Gift Card"],
+        answer: 1,
+        answerImage: 'assets/images/fifthelement.gif'
+    },
+    {
+        question: "What are the humanoid robots called in 'Blade Runner'?",
+        answerList: ["Androids", "Cyborgs", "Robocops", "Replicants"],
         answer: 3,
-        answerImage: 'assets/images/question4.gif'
+        answerImage: 'assets/images/bladerunner.gif'
+    },
+    {
+        question: "In 'They Live,' what message do characters see when they put on special sunglasses?",
+        answerList: ["Prevail", "Don't Stop Believing", "Obey", "Who let the dogs out?"],
+        answer: 2,
+        answerImage: 'assets/images/theylive.gif'
+    },
+    {
+        question: "In the 'X-Files,' what character shows up when an alien conspiracy is afoot?",
+        answerList: ["The Smoking Man", "Jose Chung", "Fox Mulder", "The Talking Dog"],
+        answer: 0,
+        answerImage: 'assets/images/xfiles.gif'
     }];
 
     var questionBank = [];
@@ -144,7 +150,7 @@ $(document).ready(function() {
             }, 1000*5);
         };
 
-        // Declare function that moves on to next question after answer is displayed for three seconds
+        // Declare function that moves on to next question after answer is displayed for five seconds
         function moveOn() {
             setTimeout (function() {
                 $('.questionDivClass').remove();
