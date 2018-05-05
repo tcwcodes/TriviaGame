@@ -22,7 +22,7 @@ $(document).ready(function() {
     },
     {
         question: "In 'They Live,' what message do characters see when they put on special sunglasses?",
-        answerList: ["Prevail", "Don't Stop Believing", "Obey", "Who let the dogs out?"],
+        answerList: ["Prevail", "Don't Stop Believing", "Obey", "Who Let the Dogs Out?"],
         answer: 2,
         answerImage: 'assets/images/theylive.gif'
     },
@@ -40,15 +40,15 @@ $(document).ready(function() {
     var unanswered = 0;
     var answeredInTime = false;
 
+    var myTimeout;
+    var counter;
+
     // Set up countdown timer
     var timer = {
-        time: 5,
+        time: 30,
 
         start: function() {
             counter = setInterval(timer.count, 1000);
-            setTimeout (function() {
-                clearInterval(counter);
-                }, 1000*5)
         },
 
         count: function() {
@@ -57,7 +57,7 @@ $(document).ready(function() {
         },
 
         reset: function() {
-            timer.time = 5;
+            timer.time = 30;
             $('#timer-div').html("<h2>Time remaining: " + timer.time + "</h2>");
         }
 
@@ -101,63 +101,63 @@ $(document).ready(function() {
             };
 
             // Set and display timer
+            clearTimeout(myTimeout);
+            clearInterval(counter);
             timer.reset();
             timer.start();
 
             // Reset "answered in time" attribute
             answeredInTime = false;
             console.log(answeredInTime)
+            
+            myTimeout = setTimeout (function() {
+                if (answeredInTime === false) { 
+                    waitedTooLong();
+                } else {
+                    clearTimeout(myTimeout);
+                }
+            }, 1000*30)
+
         };
 
         // Declare function that displays message, correct answer and image if question not answered in time
         function waitedTooLong() {
             var theAnswerInWords = ($('.questionDivClass').attr('correctAnswerInWords'));
             var questionImage = $('.questionDivClass').attr('answerImagePath');
-            setTimeout (function() {
-                if (answeredInTime === false) {
-                unanswered++;
-                console.log('Unanswered');
-                console.log('Wins: ' + wins)
-                console.log('Losses: ' + losses);
-                console.log('Unanswered: ' + unanswered);
-                $('.questionDivClass').remove();
-                $('.answerChoiceDivClass').remove();
-                $('#timer-div').empty();
-                $('#game-div').append('<h2>You waited too long! The correct answer is ' + theAnswerInWords + '.</h2>');
-                $('#game-div').append('<img src=' + questionImage + '>');
-                    setTimeout(function() {
-                        if (triviaQuestions.length === 0) {
-                            $('#game-div').empty();
-                            $('#timer-div').empty();
-                            $('#game-div').append('<h2>Game over! Hit the start button to play again!</h2>');
-                            $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
-                            $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
-                            $('#game-div').append('<h3>Unanswered: ' + unanswered + '</h3>');
-                            triviaQuestions = questionBank;
-                            questionBank = [];
-                            wins = 0;
-                            losses = 0;
-                            unanswered = 0;
-                            answeredInTime = false;
-                            $('#start-button-div').show();
-                        } else {
-                            $('#game-div').empty();
-                            loadFirstQuestion();
-                            waitedTooLong();
-                        }      
-                    }, 1000*5);
-                } else {}
+            console.log("You did not answer in time!");
+            unanswered++;
+            console.log('Unanswered');
+            console.log('Wins: ' + wins)
+            console.log('Losses: ' + losses);
+            console.log('Unanswered: ' + unanswered);
+            clearInterval(counter);
+            $('.questionDivClass').remove();
+            $('.answerChoiceDivClass').remove();
+            $('#timer-div').empty();
+            $('#game-div').append('<h2>You waited too long! The correct answer is ' + theAnswerInWords + '.</h2>');
+            $('#game-div').append('<img src=' + questionImage + '>');
+            setTimeout(function() {
+                if (triviaQuestions.length === 0) {
+                    $('#game-div').empty();
+                    $('#timer-div').empty();
+                    $('#game-div').append('<h2>Game over! Hit the start button to play again!</h2>');
+                    $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
+                    $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
+                    $('#game-div').append('<h3>Unanswered: ' + unanswered + '</h3>');
+                    triviaQuestions = questionBank;
+                    questionBank = [];
+                    wins = 0;
+                    losses = 0;
+                    unanswered = 0;
+                    answeredInTime = false;
+                    console.log(answeredInTime)
+                    $('#start-button-div').show();
+                } else {
+                    $('#game-div').empty();
+                    loadFirstQuestion();
+                }      
             }, 1000*5);
         };
-
-        // Declare function that moves on to next question after answer is displayed for five seconds
-        function moveOn() {
-            setTimeout (function() {
-                $('.questionDivClass').remove();
-                $('.answerChoiceDivClass').remove();
-                loadFirstQuestion();
-            }, 1000*5);
-        }
 
     $('body').on('click', '#start-button', function() {
 
@@ -166,7 +166,6 @@ $(document).ready(function() {
         $('#game-div').empty();
         // Load first question
         loadFirstQuestion()
-        waitedTooLong();
     });
 
     $('body').on('click', '.eachAnswerDivClass', function() {
@@ -175,7 +174,9 @@ $(document).ready(function() {
         var theAnswerInWords = ($('.questionDivClass').attr('correctAnswerInWords'));
         var questionImage = $('.questionDivClass').attr('answerImagePath');
         answeredInTime = true;
+        console.log(answeredInTime);
         clearInterval(counter);
+        console.log("Timeout cleared");
         console.log('You clicked: ' + youClicked);
         console.log('The answer is: ' + theAnswerIs);
         console.log('Did you answer in time? ' + answeredInTime);
@@ -197,17 +198,19 @@ $(document).ready(function() {
                     $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
                     $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
                     $('#game-div').append('<h3>Unanswered: ' + unanswered + '</h3>');
+                    clearTimeout(myTimeout);
                     triviaQuestions = questionBank;
                     questionBank = [];
                     wins = 0;
                     losses = 0;
                     unanswered = 0;
                     answeredInTime = false;
+                    console.log(answeredInTime)
                     $('#start-button-div').show();
                 } else {
+                    console.log("Go again");
                     $('#game-div').empty();
                     loadFirstQuestion()
-                    waitedTooLong();
                 }                  
             }, 1000*5);
         } else {
@@ -228,17 +231,18 @@ $(document).ready(function() {
                     $('#game-div').append('<h3>Correct answers: ' + wins + '</h3>');
                     $('#game-div').append('<h3>Incorrect answers: ' + losses + '</h3>');
                     $('#game-div').append('<h3>Unanswered: ' + unanswered + '</h3>');
+                    clearTimeout(myTimeout);
                     triviaQuestions = questionBank;
                     questionBank = [];
                     wins = 0;
                     losses = 0;
                     unanswered = 0;
                     answeredInTime = false;
+                    console.log(answeredInTime)
                     $('#start-button-div').show();
                 } else {
                     $('#game-div').empty();
                     loadFirstQuestion()
-                    waitedTooLong();
                 }      
             }, 1000*5);
         }

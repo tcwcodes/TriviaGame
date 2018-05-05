@@ -8,10 +8,16 @@ body {
     color: white;
 }
 
+img {
+    border: solid white 2px;
+    margin: 20px;
+}
+
 .container {
     background: #253662;
     margin-top: 20px;
     padding: 20px;
+    border: solid white 2px
 }
 
 header {
