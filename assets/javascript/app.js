@@ -94,9 +94,9 @@ $(document).ready(function() {
             // Create a div for each answer choice, add respective answer attritbue and append to answer choice div
             for (var i = 0; i < randomQuestion.answerList.length; i++) {
             var eachAnswerDiv = $('<div>');
-            eachAnswerDiv.addClass('eachAnswerDivClass');
             eachAnswerDiv.attr('thisAnswer', [i]);
-            eachAnswerDiv.append('<h3>' + randomQuestion.answerList[i] + '</h3>');
+            eachAnswerDiv.append('<button type="button" class="btn btn-outline-primary button-text-color">' + randomQuestion.answerList[i] + '</button>');
+            eachAnswerDiv.addClass('eachAnswerDivClass');
             $(answerChoiceDiv).append(eachAnswerDiv);
             };
 

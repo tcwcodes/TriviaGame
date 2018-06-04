@@ -2,7 +2,6 @@ body {
     background-image: url("../images/bladerunner.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    /* background-position: center center; */
     align-content: center;
     text-align: center;
     color: white;
@@ -33,5 +32,15 @@ header {
 }
 
 .eachAnswerDivClass {
-    /* padding: 20px; */
+    padding: 10px;
+}
+.button-text-color {
+    color: #253662;
+    background: white;
+}
+
+.button-text-color:hover {
+    font-weight: bold;
+    color: white;
+    background: teal;
 }
